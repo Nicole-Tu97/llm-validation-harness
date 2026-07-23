@@ -1,0 +1,4 @@
+numpy
+matplotlib
+# optional, only needed to validate a real model (USE_LLM=1):
+anthropic
