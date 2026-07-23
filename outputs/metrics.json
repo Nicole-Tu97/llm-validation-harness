@@ -1,0 +1,40 @@
+{
+  "guarded": {
+    "answerable_correctness": 0.9375,
+    "over_abstention": 0.1111,
+    "hallucination_rate": 0.0,
+    "unanswerable_abstain_rate": 1.0,
+    "grounding_rate": 0.6875,
+    "reproducibility": 0.6154,
+    "robustness": 0.7821,
+    "ece": 0.1636,
+    "fairness_consistency": 1.0
+  },
+  "naive": {
+    "answerable_correctness": 0.8889,
+    "over_abstention": 0.0,
+    "hallucination_rate": 0.75,
+    "unanswerable_abstain_rate": 0.25,
+    "grounding_rate": 0.4583,
+    "reproducibility": 0.1923,
+    "robustness": 0.7692,
+    "ece": 0.2117,
+    "fairness_consistency": 1.0
+  },
+  "thresholds": {
+    "hallucination_rate": "<= 0.15",
+    "answerable_correctness": ">= 0.85",
+    "reproducibility": ">= 0.95",
+    "robustness": ">= 0.9",
+    "fairness_consistency": ">= 1.0",
+    "ece": "<= 0.1"
+  },
+  "champion_pass": {
+    "hallucination_rate": true,
+    "answerable_correctness": true,
+    "reproducibility": false,
+    "robustness": false,
+    "fairness_consistency": true,
+    "ece": false
+  }
+}
