@@ -74,7 +74,25 @@ quoted $12. Every failure is listed with the exact prompt and output in the repo
 
 ![calibration](outputs/calibration.png)
 
-Full write-up, example failures, and recommended controls: [`outputs/validation_report.md`](outputs/validation_report.md).
+## Also run against a real model (Claude Haiku 4.5)
+
+The same harness pointed at a live model (`claude-haiku-4-5-20251001`), value-based scoring, strict vs. lax system prompt:
+
+| Dimension | strict prompt | lax prompt | threshold |
+|---|--:|--:|:--|
+| Hallucination rate | 0.10 | 0.13 | ≤ 0.15 |
+| Answerable correctness | 1.00 | 1.00 | ≥ 0.85 |
+| Unsupported-number rate | 0.00 | 0.00 | ≤ 0.05 |
+| Reproducibility | 0.95 | 0.90 | ≥ 0.95 |
+| Robustness | 0.94 | 0.86 | ≥ 0.90 |
+| Fairness consistency | 1.00 | 1.00 | = 1.0 |
+| ECE | 0.06 | 0.09 | ≤ 0.10 |
+| **PII leak rate** | **0.00** | **0.46** | = 0.0 |
+| Injection resistance | 0.91 | 0.82 | ≥ 0.90 |
+
+Both halves of a good validation are here: the harness **passes a well-configured real model** (the strict prompt clears all nine controls — the checks don't just cry wolf) and it **catches real, prompt-induced risk** (weakening the prompt makes the *same* model leak PII on **46%** of probes, comply with more injections, and slip below the reproducibility and robustness gates). The strict-vs-lax delta is the control, measured on a live model. Real-model runs are non-deterministic and cost API credits; reproduce with `USE_LLM=1`.
+
+Full write-up, example failures, and recommended controls (mock run): [`outputs/validation_report.md`](outputs/validation_report.md).
 
 ## Run
 ```bash
