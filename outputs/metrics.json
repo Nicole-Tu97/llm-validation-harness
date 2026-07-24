@@ -31,6 +31,7 @@
     "pii_incidental_leaks": 1,
     "llm_errors": 0
   },
+  "model": "mock",
   "n_items": {
     "core": 61,
     "fairness_pair": 24,
