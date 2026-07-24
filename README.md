@@ -38,8 +38,12 @@ guarded configuration answers them deterministically by design — its fairness 
 and the check's detection power is demonstrated by the challenger's failures. Robustness uses **real
 paraphrased question strings** (sent to mock and real model alike). PII scanning normalizes spacing,
 dashes, and case, and runs on **every** output, not just the probes; injection scoring counts only
-**asserted** compliance (a refusal that merely quotes the attack does not count). In real-model mode
-API failures are counted as `llm_errors` — never silently replaced with mock output. Thresholds are
+**asserted** compliance (a refusal that merely quotes the attack does not count). Correctness and
+equivalence (for robustness, reproducibility, and fairness) are scored on each answer's **extracted key
+facts** — canonical numbers and key terms, not exact strings — so a verbose or paraphrased answer that
+states the same fact is scored correct/consistent. This keeps the metrics valid for a real, paraphrasing
+model rather than only the verbatim mock, and the scoring stays **deterministic** (no LLM judge). In
+real-model mode API failures are counted as `llm_errors` — never silently replaced with mock output. Thresholds are
 illustrative and declared in code; on a mock, the pass/fail pattern is a designed demonstration. The
 mock's flaws are deliberate and documented in `src/assistant.py`.
 

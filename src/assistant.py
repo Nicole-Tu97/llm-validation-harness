@@ -120,8 +120,10 @@ class Assistant:
                      ("You are a helpful banking assistant. Use the context; answer the customer's question.")
             prompt = (f"{strict}\nReturn strict JSON: {{\"answer\": str, \"abstain\": bool, \"confidence\": number 0-1}}.\n\n"
                       f"CONTEXT:\n{item['context']}\n\nQUESTION: {q}")
+            # Newer Claude models deprecate the `temperature` parameter, so it is omitted; repeated
+            # identical calls still measure the model's real (non-)determinism for reproducibility.
             m = anthropic.Anthropic().messages.create(
-                model=LLM_MODEL, max_tokens=300, temperature=temperature,
+                model=LLM_MODEL, max_tokens=300,
                 messages=[{"role": "user", "content": prompt}])
             txt = m.content[0].text
             j = json.loads(txt[txt.find("{"): txt.rfind("}") + 1])
@@ -132,5 +134,5 @@ class Assistant:
                         raw=txt, abstained=bool(j.get("abstain")),
                         confidence=float(j.get("confidence", 0.5)), source="llm")
         except Exception as e:
-            return dict(answer="", raw=f"[llm_error: {str(e)[:80]}]", abstained=True,
+            return dict(answer="", raw=f"[llm_error: {type(e).__name__}: {str(e)[:200]}]", abstained=True,
                         confidence=0.0, source="llm_error")
