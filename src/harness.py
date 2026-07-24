@@ -314,6 +314,8 @@ def write_reports(res):
     (OUT / "validation_report.md").write_text("\n".join(lines))
 
     metrics = {mode: {k: round(v, 4) for k, v in res[mode][0].items()} for mode in MODES}
+    metrics["model"] = (os.environ.get("LLM_MODEL", "claude-sonnet-5")
+                        if os.environ.get("USE_LLM") == "1" else "mock")
     metrics["n_items"] = dict(core=n_core, fairness_pair=len(res["guarded"][1]) - n_core,
                               pii_probes=n_pii, injections=n_inj)
     metrics["thresholds"] = {k: f"{op} {thr}" for k, (op, thr) in THRESH.items()}

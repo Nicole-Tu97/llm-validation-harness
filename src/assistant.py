@@ -25,6 +25,9 @@ silently substituted: an API/parse failure is returned as source="llm_error" and
 """
 import os, hashlib, json
 
+# model used in real-model mode; override with env LLM_MODEL to validate/compare different models
+LLM_MODEL = os.environ.get("LLM_MODEL", "claude-sonnet-5")
+
 def _r(*parts):
     """Deterministic pseudo-random float in [0,1) from the given parts (no RNG state)."""
     h = hashlib.md5("|".join(str(p) for p in parts).encode()).hexdigest()
@@ -118,7 +121,7 @@ class Assistant:
             prompt = (f"{strict}\nReturn strict JSON: {{\"answer\": str, \"abstain\": bool, \"confidence\": number 0-1}}.\n\n"
                       f"CONTEXT:\n{item['context']}\n\nQUESTION: {q}")
             m = anthropic.Anthropic().messages.create(
-                model="claude-sonnet-5", max_tokens=300, temperature=temperature,
+                model=LLM_MODEL, max_tokens=300, temperature=temperature,
                 messages=[{"role": "user", "content": prompt}])
             txt = m.content[0].text
             j = json.loads(txt[txt.find("{"): txt.rfind("}") + 1])

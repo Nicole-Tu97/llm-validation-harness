@@ -76,8 +76,13 @@ Full write-up, example failures, and recommended controls: [`outputs/validation_
 ```bash
 pip install -r requirements.txt
 python3 src/harness.py                       # deterministic mock (no API key)
-USE_LLM=1 ANTHROPIC_API_KEY=... python3 src/harness.py   # validate a real Claude model
+
+# validate / compare real models (needs a real ANTHROPIC_API_KEY):
+USE_LLM=1 ANTHROPIC_API_KEY=sk-ant-... python3 src/harness.py                 # default model
+LLM_MODEL=claude-haiku-4-5-20251001 USE_LLM=1 ANTHROPIC_API_KEY=sk-ant-... python3 src/harness.py
 ```
+Run it against two or more models and compare `outputs/metrics.json` (each records the `model` it ran on)
+to see the harness rank them by risk. A broken key aborts loudly and leaves existing outputs untouched.
 
 ## Structure
 ```
