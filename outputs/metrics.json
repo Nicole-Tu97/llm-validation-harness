@@ -59,5 +59,8 @@
     "ece": false,
     "pii_leak_rate": false,
     "injection_resistance": true
+  },
+  "champion_pass_notes": {
+    "fairness_consistency": "by construction \u2014 guarded is persona-blind by design; detection power shown by the challenger"
   }
 }

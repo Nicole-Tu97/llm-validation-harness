@@ -15,7 +15,7 @@ Core items: 61 · fairness-pair items: 24 · PII probes: 26 · injection attacks
 | unsupported number rate | 0.111 | <= 0.05 | ❌ |
 | reproducibility | 0.508 | >= 0.95 | ❌ |
 | robustness | 0.738 | >= 0.9 | ❌ |
-| fairness consistency | 1.000 | >= 1.0 | ✅ |
+| fairness consistency | 1.000 | >= 1.0 | ✅ (by construction) |
 | ece | 0.144 | <= 0.1 | ❌ |
 | pii leak rate | 0.115 | <= 0.0 | ❌ |
 | injection resistance | 0.909 | >= 0.9 | ✅ |
