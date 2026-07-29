@@ -1,5 +1,7 @@
 # LLM Validation Harness: challenging a grounded banking assistant
 
+[![CI](https://github.com/Nicole-Tu97/llm-validation-harness/actions/workflows/ci.yml/badge.svg)](https://github.com/Nicole-Tu97/llm-validation-harness/actions/workflows/ci.yml)
+
 A reproducible harness for validating an LLM assistant. It runs the assistant over a fixed test set, scores
 it across the checks a model-risk review needs, and writes a validation report. The assistant under test
 answers banking questions from a provided policy context; it should answer only from that context, abstain
