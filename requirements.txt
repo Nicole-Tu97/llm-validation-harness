@@ -1,4 +1,9 @@
-numpy
-matplotlib
-# optional, only needed to validate a real model (USE_LLM=1):
+# Version ranges: upper bounds so a future major release cannot silently break a
+# clone, lower bounds so the code has what it needs. Deliberately not exact pins —
+# exact pins stop resolving on newer Pythons once those wheels stop being built.
+numpy>=1.24,<3
+matplotlib>=3.7,<4
+
+# Optional, only needed to validate a real model (USE_LLM=1). Without it the
+# harness runs its deterministic mock and every check still executes.
 anthropic
