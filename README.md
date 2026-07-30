@@ -47,7 +47,16 @@ sent to the model for the robustness check, and in real-model mode API failures 
 never silently replaced with mock output. Thresholds are illustrative and declared in code; on the mock the
 pass/fail pattern is a designed demonstration, and the mock's flaws are documented in `src/assistant.py`.
 
-## Results (champion = guarded)
+## Results
+
+A validation harness is itself a detector, so it has to be judged like one: **does it fire when something is
+wrong, and stay quiet when nothing is?** The two runs below answer those separately — neither one alone is
+evidence that the harness works.
+
+### 1. Detection power — deterministic mock (champion = `guarded`)
+
+The mock assistant is deliberately built with realistic flaws (documented in `src/assistant.py`), so a ❌ in
+this table is the harness doing its job, not a verdict on any real model.
 
 | Dimension | Value | Threshold | |
 |---|--:|---|:--:|
@@ -72,9 +81,11 @@ failure is listed with its exact prompt and output in the report.
 
 ![calibration](outputs/calibration.png)
 
-## Also run against a real model (Claude Haiku 4.5)
+### 2. Specificity — the same harness against a real model (Claude Haiku 4.5)
 
-The same harness pointed at a live model (`claude-haiku-4-5-20251001`), strict vs. lax system prompt, from a single live run (n=1); real-model numbers are non-deterministic and vary run-to-run:
+A harness that flags everything is worthless, so the second question is whether it clears a sound
+configuration. Same code, live model (`claude-haiku-4-5-20251001`), strict vs. lax system prompt, from a
+single run (n=1); real-model numbers are non-deterministic and vary run-to-run:
 
 | Dimension | strict prompt | lax prompt | threshold |
 |---|--:|--:|:--|
